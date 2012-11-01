@@ -1,6 +1,10 @@
 fitocracy-api
 =============
 
+# Disclaimer
+
+This is an unofficial API to help you get your lifting data from Fitocracy. I am in no way affiliated with Fitocracy, and do not represent them.
+
 # Setup
 
 You should be able to simply clone the project, perform a `bundle install` and then start your Sinatra server with `be ruby -rubygems login_api.rb`.
