@@ -108,6 +108,7 @@ Sample output:
 
 # TODO
 
+* Switch to POSTS and set up a form accepting a username/password combination
 * Should not have to log in for every request
 	* Keep user session around
 * Actually look up the lifts for a specific exercise
