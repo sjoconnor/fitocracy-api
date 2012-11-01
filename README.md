@@ -5,7 +5,18 @@ fitocracy-api
 
 You should be able to simply clone the project, perform a `bundle install` and then start your Sinatra server with `be ruby -rubygems login_api.rb`.
 
-In `login.api.rb` you'll need to swap out the Username and Password with your actual credentials. Eventually this will be moved to either a separate YAML file or possibly environment variables.
+In `login.api.rb` you'll need to swap out the Username and Password with your actual credentials, or you can optionally set the following environment variables in `user.rb`.
+
+````ruby
+class User
+  attr_reader :username, :password
+
+  def initialize(credentials={})
+    @username = credentials[:username] || ENV['fitocracy_api_username']
+    @password = credentials[:password] || ENV['fitocracy_api_password']
+  end
+end
+````
 
 # My Lifts
 

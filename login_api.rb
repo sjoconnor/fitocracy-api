@@ -7,7 +7,7 @@ require_relative 'page_models/login'
 
 get '/my_lifts' do
   @agent = Mechanize.new
-  @user  = User.new({:username => 'Username', :password => 'Password'})
+  @user  = User.new
 
   login_model     = ::PageModels::Login.new(@agent, @user)
   login_response  = login_model.login
@@ -20,7 +20,7 @@ end
 
 get '/my_lifts/:lift' do
   @agent = Mechanize.new
-  @user  = User.new({:username => 'Username', :password => 'Password'})
+  @user  = User.new
 
   login_model     = ::PageModels::Login.new(@agent, @user)
   login_response  = login_model.login
