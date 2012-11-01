@@ -9,8 +9,8 @@ get '/my_lifts' do
   @agent = Mechanize.new
   @user  = User.new({:username => 'Username', :password => 'Password'})
 
-  page_model_login = ::PageModels::Login.new(@agent, @user)
-  login_response = page_model_login.login
+  login_model     = ::PageModels::Login.new(@agent, @user)
+  login_response  = login_model.login
 
   my_activities = @agent.get("https://www.fitocracy.com/get_user_activities/#{login_response["X-Fitocracy-User"]}/")
 
@@ -22,24 +22,16 @@ get '/my_lifts/:lift' do
   @agent = Mechanize.new
   @user  = User.new({:username => 'Username', :password => 'Password'})
 
-  login_page = @agent.get('https://www.fitocracy.com/accounts/login/')
-  login_form = login_page.form_with(:id => 'username-login-form')
+  login_model     = ::PageModels::Login.new(@agent, @user)
+  login_response  = login_model.login
 
-  form_values = {
-    'csrfmiddlewaretoken' => login_form['csrfmiddlewaretoken'],
-    'is_username'         => '1',
-    'json'                => '1',
-    'next'                => '/home/',
-    'username'            => @user.username,
-    'password'            => @user.password
-  }
+  my_activities = @agent.get("https://www.fitocracy.com/get_user_activities/#{login_response["X-Fitocracy-User"]}/")
 
-  my_home_page = @agent.post('https://www.fitocracy.com/accounts/login/', form_values)
+  lift = JSON.parse(my_activities.body) \
+             .detect {|lift| lift["name"] == params[:lift]}
 
-  my_activities = @agent.get("https://www.fitocracy.com/get_user_activities/#{my_home_page["X-Fitocracy-User"]}/")
-
-  my_lift = JSON.parse(my_activities.body).detect {|lift| lift["name"] == params[:lift]}
+  lift_response = @agent.get("https://www.fitocracy.com/get_history_json_from_activity/#{lift["id"]}/?max_sets=-1&max_workouts=-1&reverse=1")
 
   content_type :json
-  JSON.pretty_generate(my_lift)
+  JSON.pretty_generate(JSON.parse(lift_response.body))
 end
