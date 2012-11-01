@@ -12,3 +12,13 @@ In `login.api.rb` you'll need to swap out the Username and Password with your ac
 Hitting `localhost:4567/my_lifts` will return JSON with all of your lifts. Very soon I will implement a route that will allow access to a specific lifts statistics, but this is a  start.
 
 You can hit `localhost:4567/my_lifts/Barbell Bench Press`, to get the bench press representation. The lift name must match exactly as it does on Fitocracy.
+
+# TODO
+
+* Should not have to log in for every request
+	* Keep user session around
+* Actually look up the lifts for a specific exercise
+* Possibly adding good charts for lifts
+* Massive refactor
+	* Eliminate login duplication
+	* Extract pages into objects
