@@ -6,8 +6,12 @@ require_relative 'user'
 require_relative 'page_models/login'
 
 get '/my_lifts' do
+  erb :index
+end
+
+post '/my_lifts' do
   @agent = Mechanize.new
-  @user  = User.new
+  @user  = User.new({:username => params['username'], :password => params['password']})
 
   login_model     = ::PageModels::Login.new(@agent, @user)
   login_response  = login_model.login
@@ -18,9 +22,9 @@ get '/my_lifts' do
   JSON.pretty_generate(JSON.parse(my_activities.body))
 end
 
-get '/my_lifts/:lift' do
+post '/my_lifts/:lift' do
   @agent = Mechanize.new
-  @user  = User.new
+  @user  = User.new({:username => params['username'], :password => params['password']})
 
   login_model     = ::PageModels::Login.new(@agent, @user)
   login_response  = login_model.login
