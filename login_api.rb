@@ -2,7 +2,7 @@ require 'sinatra'
 require 'mechanize'
 require 'json'
 require 'pry'
-require_relative 'user'
+require_relative 'models/user'
 require_relative 'page_models/login'
 
 get '/my_lifts' do
@@ -16,7 +16,9 @@ post '/my_lifts' do
   login_model     = ::PageModels::Login.new(@agent, @user)
   login_response  = login_model.login
 
-  my_activities = @agent.get("https://www.fitocracy.com/get_user_activities/#{login_response["X-Fitocracy-User"]}/")
+  @user.x_fitocracy_user = login_response["X-Fitocracy-User"]
+
+  my_activities = @user.activities(@agent)
 
   content_type :json
   JSON.pretty_generate(JSON.parse(my_activities.body))
@@ -29,7 +31,9 @@ post '/my_lifts/:lift' do
   login_model     = ::PageModels::Login.new(@agent, @user)
   login_response  = login_model.login
 
-  my_activities = @agent.get("https://www.fitocracy.com/get_user_activities/#{login_response["X-Fitocracy-User"]}/")
+  @user.x_fitocracy_user = login_response["X-Fitocracy-User"]
+
+  my_activities = @user.activities(@agent)
 
   lift = JSON.parse(my_activities.body) \
              .detect {|lift| lift["name"] == params[:lift]}
