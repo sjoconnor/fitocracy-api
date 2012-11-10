@@ -5,41 +5,36 @@ require 'pry'
 require_relative 'models/user'
 require_relative 'page_models/login'
 
-get '/my_lifts' do
+get '/my_activities' do
   erb :index
 end
 
-post '/my_lifts' do
+post '/my_activities' do
   @agent = Mechanize.new
-  @user  = User.new({:username => params['username'], :password => params['password']})
+  @user  = User.new({ :username => params['username'],
+                      :password => params['password'],
+                      :agent    => @agent})
 
-  login_model     = ::PageModels::Login.new(@agent, @user)
-  login_response  = login_model.login
+  login_model             = ::PageModels::Login.new(@agent, @user)
+  @user.x_fitocracy_user  = login_model.login["X-Fitocracy-User"]
 
-  @user.x_fitocracy_user = login_response["X-Fitocracy-User"]
-
-  my_activities = @user.activities(@agent)
+  my_activities = @user.activities
 
   content_type :json
   JSON.pretty_generate(JSON.parse(my_activities.body))
 end
 
-post '/my_lifts/:lift' do
+get '/my_activities/:activity_name' do
   @agent = Mechanize.new
-  @user  = User.new({:username => params['username'], :password => params['password']})
+  @user  = User.new({ :username => params['username'],
+                      :password => params['password'],
+                      :agent    => @agent})
 
-  login_model     = ::PageModels::Login.new(@agent, @user)
-  login_response  = login_model.login
+  login_model             = ::PageModels::Login.new(@agent, @user)
+  @user.x_fitocracy_user  = login_model.login["X-Fitocracy-User"]
 
-  @user.x_fitocracy_user = login_response["X-Fitocracy-User"]
-
-  my_activities = @user.activities(@agent)
-
-  lift = JSON.parse(my_activities.body) \
-             .detect {|lift| lift["name"] == params[:lift]}
-
-  lift_response = @agent.get("https://www.fitocracy.com/get_history_json_from_activity/#{lift["id"]}/?max_sets=-1&max_workouts=-1&reverse=1")
+  activity_log = @user.activity_log(params[:activity_name])
 
   content_type :json
-  JSON.pretty_generate(JSON.parse(lift_response.body))
+  JSON.pretty_generate(JSON.parse(activity_log.body))
 end
