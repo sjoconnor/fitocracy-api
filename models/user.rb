@@ -2,13 +2,10 @@ class User
   attr_reader :username, :password
   attr_accessor :x_fitocracy_user, :agent
 
-  def initialize(hash={})
-    @username = hash[:username] || ENV['fitocracy_api_username']
-    @password = hash[:password] || ENV['fitocracy_api_password']
-    @agent = hash[:agent]
-  end
-
-  def login
+  def initialize(agent, credentials={})
+    @agent    = agent
+    @username = credentials[:username] || ENV['fitocracy_api_username']
+    @password = credentials[:password] || ENV['fitocracy_api_password']
   end
 
   def activities

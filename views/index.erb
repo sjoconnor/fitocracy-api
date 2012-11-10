@@ -1,4 +1,10 @@
-<h1>All My Lifts</h1>
+<% if flash[:error] %>
+  <p><%= flash[:error] %></p>
+<% end %>
+
+<p>If you are not hosting this yourself, be very mindful when inputting your username and password.</p>
+
+<h1>All My Activities</h1>
 
 <form action="/my_activities" method="post">
   <label for="username">Username</label>
@@ -6,6 +12,22 @@
 
   <label for="password">Password</label>
   <input type="password" name="password" />
+
+  <input type="submit" />
+</form>
+
+
+<h1>Specific Activity</h1>
+
+<form action="/my_activity" method="post">
+  <label for="username">Username</label>
+  <input type="text" name="username" />
+
+  <label for="password">Password</label>
+  <input type="password" name="password" />
+
+  <label for="activity_name">Activity Name</label>
+  <input type="test" name="activity_name" />
 
   <input type="submit" />
 </form>

@@ -1,5 +1,8 @@
+require 'json'
+
 module PageModels
   class Login
+    attr_accessor :success, :error, :login_status, :user, :agent
 
     def initialize(agent, user)
       @agent = agent
@@ -7,7 +10,10 @@ module PageModels
     end
 
     def login
-      @agent.post(login_uri, form_values)
+      login_response        = @agent.post(login_uri, form_values)
+      @login_status          = JSON.parse(login_response.body)
+      @success               = @login_status["success"]
+      @error                 = @login_status["error"] unless @login_status["error"].nil?
     end
 
     private
