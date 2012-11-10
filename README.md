@@ -5,7 +5,7 @@ Feel free to look me up and follow me on fitocracy as sjoconnor.
 
 # Disclaimer
 
-This is an unofficial API to help you get your lifting data from Fitocracy. I am in no way affiliated with Fitocracy, and do not represent them.
+This is an unofficial API to help you get your lifting data from Fitocracy. I am in no way affiliated with Fitocracy, and do not represent them. Additionally, I have no desire to be responsible for your username and password, so although I may create forms to make certain things easier to access, I will not publically host this app. Please be careful when using this and keep your username/password secure.
 
 # Setup
 
