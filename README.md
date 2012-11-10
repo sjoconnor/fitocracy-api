@@ -1,6 +1,8 @@
 fitocracy-api
 =============
 
+Feel free to look me up and follow me on fitocracy as sjoconnor.
+
 # Disclaimer
 
 This is an unofficial API to help you get your lifting data from Fitocracy. I am in no way affiliated with Fitocracy, and do not represent them.
@@ -13,18 +15,23 @@ In `login.api.rb` you'll need to swap out the Username and Password with your ac
 
 ````ruby
 class User
-  attr_reader :username, :password
 
-  def initialize(credentials={})
-    @username = credentials[:username] || ENV['fitocracy_api_username']
-    @password = credentials[:password] || ENV['fitocracy_api_password']
+  ...
+
+  def initialize(hash={})
+    @username = hash[:username] || ENV['fitocracy_api_username']
+    @password = hash[:password] || ENV['fitocracy_api_password']
+    @agent = hash[:agent]
   end
+
+  ...
+
 end
 ````
 
 # My Lifts
 
-Hitting `localhost:4567/my_lifts` will return JSON with all of your lifts. Very soon I will implement a route that will allow access to a specific lifts statistics, but this is a  start.
+Hitting `localhost:4567/my_activities` will return JSON with all of your lifts. Very soon I will implement a route that will allow access to a specific lifts statistics, but this is a  start.
 
 Sample output:
 
@@ -65,7 +72,7 @@ Sample output:
 
 # Specific Lifts
 
-You can get data regarding a specific link by appending the exercise name, exactly as it comes from Fitocracy, like so: `localhost:4567/my_lifts/Barbell Bench Press`. The lift name must match exactly as it does on Fitocracy.
+You can get data regarding a specific link by appending the exercise name, exactly as it comes from Fitocracy, like so: `localhost:4567/my_activities/Barbell Bench Press`. The lift name must match exactly as it does on Fitocracy.
 
 Sample output:
 
