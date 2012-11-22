@@ -31,7 +31,7 @@ end
 
 # My Lifts
 
-Hitting `localhost:4567/my_activities` will return JSON with all of your lifts. Very soon I will implement a route that will allow access to a specific lifts statistics, but this is a  start.
+Hitting `localhost:4567/user/activities` will return JSON with all of your lifts. Very soon I will implement a route that will allow access to a specific lifts statistics, but this is a  start.
 
 Sample output:
 
@@ -72,7 +72,7 @@ Sample output:
 
 # Specific Lifts
 
-You can get data regarding a specific link by appending the exercise name, exactly as it comes from Fitocracy, like so: `localhost:4567/my_activities/Barbell Bench Press`. The lift name must match exactly as it does on Fitocracy.
+You can get data regarding a specific link by appending the exercise name, exactly as it comes from Fitocracy, like so: `localhost:4567/user/activity_history`. Pass the activity name ("Barbell Bench Press") as a param. The lift name must match exactly as it does on Fitocracy.
 
 Sample output:
 
@@ -113,13 +113,21 @@ Sample output:
 ]
 ````
 
+# Changelog
+
+### November 22, 2012
+* Routes were changed so login validations could be ran before each request.
+* All routes are now POSTs, instead of GETs. Doing a GET with usernames/passwords didn't feel right, for obvious reasons.
+* Extracted all paths into a separate module to keep them all together.
+* Added an additional form, primarily to make testing easier.
+
 # TODO
 
-* Switch to POSTS and set up a form accepting a username/password combination
+* ~~Switch to POSTS and set up a form accepting a username/password combination~~
 * Should not have to log in for every request
 	* Keep user session around
-* Actually look up the lifts for a specific exercise
+* ~~Actually look up the lifts for a specific exercise~~
 * Possibly adding good charts for lifts
 * Massive refactor
-	* Eliminate login duplication
+	* ~~Eliminate login duplication~~
 	* Extract pages into objects
