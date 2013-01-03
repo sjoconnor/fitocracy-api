@@ -26,11 +26,9 @@ module PageModels
       }
     end
 
-    def login_page
-      @agent.get(login_uri)
-    end
-
     def login_form
+      login_page = @agent.get(login_uri)
+
       login_page.form_with(:id => 'username-login-form')
     end
 

@@ -15,7 +15,7 @@ class User
   end
 
   def activities
-    @activities ||= agent.get(activities_uri)
+    @activities ||= agent.get(activities_uri(self.x_fitocracy_user))
   end
 
   def activity(activity_name)
