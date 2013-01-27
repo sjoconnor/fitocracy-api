@@ -29,10 +29,10 @@ get '/user/:username/activities' do
   activity = ::Fitocracy::Activity.new(user:  @user,
                                        agent: @agent)
 
-  all_activites = activity.get_all_activities_for_user
+  all_activites_data = activity.get_all_activities_for_user
 
   content_type :json
-  JSON.pretty_generate(JSON.parse(all_activites.body))
+  JSON.pretty_generate(JSON.parse(all_activites_data.body))
 end
 
 get '/user/:username/activity/:activity_name' do
@@ -43,5 +43,5 @@ get '/user/:username/activity/:activity_name' do
   activity_data = activity.activity_log
 
   content_type :json
-  JSON.pretty_generate(JSON.parse(all_activites.body))
+  JSON.pretty_generate(JSON.parse(activity_data.body))
 end
