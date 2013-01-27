@@ -21,7 +21,9 @@ class User
   def initialize(hash={})
     @username = hash[:username] || ENV['fitocracy_api_username']
     @password = hash[:password] || ENV['fitocracy_api_password']
-    @agent = hash[:agent]
+    @agent    = hash[:agent]
+
+    validate_user
   end
 
   ...
@@ -31,7 +33,7 @@ end
 
 # My Lifts
 
-Hitting `localhost:4567/user/activities` will return JSON with all of your lifts. Very soon I will implement a route that will allow access to a specific lifts statistics, but this is a  start.
+Hitting `/user/:username/activities` will return JSON with all of your lifts. For now the `:username` paramater is just fluff, as all actions will be done based upon the logged in user. In the future the passed in `:username` will be used.
 
 Sample output:
 
@@ -72,7 +74,7 @@ Sample output:
 
 # Specific Lifts
 
-You can get data regarding a specific link by appending the exercise name, exactly as it comes from Fitocracy, like so: `localhost:4567/user/activity_history`. Pass the activity name ("Barbell Bench Press") as a param. The lift name must match exactly as it does on Fitocracy.
+You can get data regarding a specific link by appending the exercise name, exactly as it comes from Fitocracy, like so: `/user/:username/activity/:activity_name`. Pass the activity name ("Barbell Bench Press") as a param. The lift name must match exactly as it does on Fitocracy.
 
 Sample output:
 
@@ -130,4 +132,5 @@ Sample output:
 * Possibly adding good charts for lifts
 * Massive refactor
 	* ~~Eliminate login duplication~~
-	* Extract pages into objects
+	* ~~Extract pages into objects~~
+* Utilized :username param when looking up activites

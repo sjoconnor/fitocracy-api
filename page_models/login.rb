@@ -2,15 +2,13 @@ require_relative '../lib/fitocracy/paths'
 
 module PageModels
   class Login
-    include ::Fitocracy::Paths
-
     def initialize(agent, user)
       @agent = agent
       @user  = user
     end
 
     def login
-      @agent.post(login_uri, form_values)
+      @agent.post(::Fitocracy::Paths.login_uri, form_values)
     end
 
     private
@@ -27,7 +25,7 @@ module PageModels
     end
 
     def login_form
-      login_page = @agent.get(login_uri)
+      login_page = @agent.get(::Fitocracy::Paths.login_uri)
 
       login_page.form_with(:id => 'username-login-form')
     end

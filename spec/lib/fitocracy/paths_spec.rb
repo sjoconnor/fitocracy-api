@@ -3,11 +3,7 @@ require_relative '../../../lib/fitocracy/paths'
 
 module ::Fitocracy
   describe Paths do
-    class DummyPath
-      include Paths
-    end
-
-    subject { DummyPath.new }
+    subject { Paths }
 
     describe "#fitocracy_root_uri" do
       specify { subject.fitocracy_root_uri.should == 'https://www.fitocracy.com/' }
