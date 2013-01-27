@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+  <head>
+    <meta charset="utf-8">
+    <title>Fitocracy Charts</title>
+    <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+
+    <!--Load the AJAX API-->
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+
+      // Load the Visualization API and the piechart package.
+      google.load('visualization', '1.0', {'packages':['corechart']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.setOnLoadCallback(getActivityData);
+
+      function getActivityData() {
+        $.getJSON('/user/sjoconnor/activities', function(json) {
+          // Create the data table.
+          var dataAry = _.map(json, function(activity) {
+            return _.toArray(activity).slice(1).reverse();
+          });
+
+          console.log(dataAry);
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'Activity');
+          data.addColumn('number', 'Times Performed');
+          data.addRows(dataAry);
+
+
+          // Set chart options
+          var options = {'title':'My Activity'};
+
+          // Instantiate and draw our chart, passing in some options.
+          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Charts</h1>
+
+    <!--Div that will hold the pie chart-->
+    <div id="chart_div"></div>
+  </body>
+</html>

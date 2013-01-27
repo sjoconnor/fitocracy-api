@@ -45,3 +45,7 @@ get '/user/:username/activity/:activity_name' do
   content_type :json
   JSON.pretty_generate(JSON.parse(activity_data.body))
 end
+
+get '/charts' do
+  File.read(File.join('public', 'charts.html'))
+end
