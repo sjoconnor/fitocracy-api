@@ -11,9 +11,9 @@ This is an unofficial API to help you get your lifting data from Fitocracy. I am
 
 Currently the user name is ignored. I have environment variables set on my Heroku. I plan to actually utilize the supplied username, but for now it will use whatever username you have configured.
 
-http://fitocracy-unofficial-api.herokuapp.com
-http://fitocracy-unofficial-api.herokuapp.com/user/soconnor/activities
-http://fitocracy-unofficial-api.herokuapp.com/user/soconnor/activity/Barbell%20Bench%20Press
+* http://fitocracy-unofficial-api.herokuapp.com
+* http://fitocracy-unofficial-api.herokuapp.com/user/soconnor/activities
+* http://fitocracy-unofficial-api.herokuapp.com/user/soconnor/activity/Barbell%20Bench%20Press
 
 # Setup
 
