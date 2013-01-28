@@ -14,29 +14,44 @@
       google.load('visualization', '1.0', {'packages':['corechart']});
 
       // Set a callback to run when the Google Visualization API is loaded.
-      google.setOnLoadCallback(getActivityData);
+      google.setOnLoadCallback(getData);
 
-      function getActivityData() {
+      function getData() {
         $.getJSON('/user/sjoconnor/activities', function(json) {
-          // Create the data table.
-          var dataAry = _.map(json, function(activity) {
+          var activityData = _.map(json, function(activity) {
             return _.toArray(activity).slice(1).reverse();
           });
 
-          console.log(dataAry);
-          var data = new google.visualization.DataTable();
-          data.addColumn('string', 'Activity');
-          data.addColumn('number', 'Times Performed');
-          data.addRows(dataAry);
-
-
-          // Set chart options
-          var options = {'title':'My Activity'};
-
-          // Instantiate and draw our chart, passing in some options.
-          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-          chart.draw(data, options);
+          generatePieChart(activityData);
+          generateBarChart(activityData);
         });
+      }
+
+      function generatePieChart(activityData) {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Activity');
+        data.addColumn('number', 'Times Performed');
+        data.addRows(activityData);
+
+
+        // Set chart options
+        var options = {'title':'My Activity'};
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
+
+      function generateBarChart(activityData) {
+        var data = google.visualization.arrayToDataTable(activityData);
+
+        var options = {
+          title: 'Activity',
+          vAxis: {title: 'Activity',  titleTextStyle: {color: 'red'}}
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart1'));
+        chart.draw(data, options);
       }
     </script>
   </head>
@@ -45,5 +60,6 @@
 
     <!--Div that will hold the pie chart-->
     <div id="chart_div"></div>
+    <div id="chart1"></div>
   </body>
 </html>

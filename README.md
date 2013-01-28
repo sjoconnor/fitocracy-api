@@ -7,6 +7,14 @@ Feel free to look me up and follow me on fitocracy as sjoconnor.
 
 This is an unofficial API to help you get your lifting data from Fitocracy. I am in no way affiliated with Fitocracy, and do not represent them. Additionally, I have no desire to be responsible for your username and password, so although I may create forms to make certain things easier to access, I will not publically host this app. Please be careful when using this and keep your username/password secure.
 
+# Examples
+
+Currently the user name is ignored. I have environment variables set on my Heroku. I plan to actually utilize the supplied username, but for now it will use whatever username you have configured.
+
+http://fitocracy-unofficial-api.herokuapp.com
+http://fitocracy-unofficial-api.herokuapp.com/user/soconnor/activities
+http://fitocracy-unofficial-api.herokuapp.com/user/soconnor/activity/Barbell%20Bench%20Press
+
 # Setup
 
 You should be able to simply clone the project, perform a `bundle install` and then start your Sinatra server with `be ruby -rubygems login_api.rb`.
